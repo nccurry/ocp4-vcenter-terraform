@@ -1,0 +1,41 @@
+cluster_id = "ocp4"
+
+vcenter_server_name = "vcsa.vmware.devcluster.openshift.com"
+vcenter_datacenter_name = "datacenter1"
+vcenter_cluster_name = "cluster1"
+vcenter_api_user = "username"
+vcenter_api_password = "password"
+vcenter_storage_user = "username"
+vcenter_storage_password = "password"
+vcenter_folder_path = "/path/to/vms"
+rhcos_template_name = "rhcos"
+
+bootstrap_cpus = "4"
+bootstrap_memory =  "16392"
+bootstrap_disk = "120"
+bootstrap_ignition_url = "http://server:8008/bootstrap.ign"
+bootstrap_vm_mac = "9B:99:69:3A:8E:EA"
+
+master_cpus = "4"
+master_memory = "16392"
+master_disk = "120"
+master_ignition_path = "/path/to/master.ign"
+master_vm_mac_list = [
+  "02:6E:09:40:75:4E",
+  "BA:2E:97:82:32:B9",
+  "BE:33:C1:ED:34:B4"
+]
+
+worker_cpus = "4"
+worker_memory = "16392"
+worker_disk = "120"
+worker_ignition_path = "/path/to/worker.ign"
+worker_vm_count = "6"
+worker_vm_mac_list = [
+    "DF:44:58:30:35:EC",
+    "D6:F0:8A:93:9C:75",
+    "D5:20:9E:47:D8:B2",
+    "1E:24:40:01:7F:1F",
+    "AA:33:6A:83:FB:38",
+    "98:F6:0B:91:9B:5D"
+]
