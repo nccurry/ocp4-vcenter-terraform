@@ -18,7 +18,7 @@ variable "vcenter_datastore_name" {
   description = "Name of vCenter datastore to deploy resources into"
 }
 
-variable "vcenter_datastore_name" {
+variable "vcenter_network_name" {
   description = "Name of vCenter network to deploy resources into"
 }
 
