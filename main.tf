@@ -57,7 +57,7 @@ data "ignition_config" "bootstrap" {
 # https://www.terraform.io/docs/providers/vsphere/r/virtual_machine.html
 resource "vsphere_virtual_machine" "bootstrap" {
   name             = "ocp-${var.cluster_id}-bootstrap"
-  resource_pool_id = data.compute_cluster.resource_pool_id
+  resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.bootstrap_cpus
   memory           = var.bootstrap_memory
@@ -85,8 +85,8 @@ resource "vsphere_virtual_machine" "bootstrap" {
   }
 
   vapp {
-    properties {
-      "guestinfo.ignition.config.data"          = base64encode(data.bootstrap.rendered)
+    properties = {
+      "guestinfo.ignition.config.data"          = base64encode(data.ignition_config.bootstrap.rendered)
       "guestinfo.ignition.config.data.encoding" = "base64"
     }
   }
@@ -97,7 +97,7 @@ resource "vsphere_virtual_machine" "master" {
   count = 3
 
   name             = "ocp-${var.cluster_id}-master-${count.index}"
-  resource_pool_id = data.compute_cluster.resource_pool_id
+  resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.master_cpus
   memory           = var.master_memory
@@ -125,7 +125,7 @@ resource "vsphere_virtual_machine" "master" {
   }
 
   vapp {
-    properties {
+    properties = {
       "guestinfo.ignition.config.data"          = base64encode(file(var.master_ignition_path)
       "guestinfo.ignition.config.data.encoding" = "base64"
     }
@@ -137,7 +137,7 @@ resource "vsphere_virtual_machine" "worker" {
   count = var.worker_vm_count
 
   name             = "ocp-${var.cluster_id}-worker-${count.index}"
-  resource_pool_id = data.compute_cluster.resource_pool_id
+  resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.worker_cpus
   memory           = var.worker_memory
@@ -165,7 +165,7 @@ resource "vsphere_virtual_machine" "worker" {
   }
 
   vapp {
-    properties {
+    properties = {
       "guestinfo.ignition.config.data"          = base64encode(file(var.worker_ignition_path)
       "guestinfo.ignition.config.data.encoding" = "base64"
     }
