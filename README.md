@@ -15,14 +15,13 @@ The following process can be used to deploy an OpenShift 4 cluster into vCenter 
  * DHCP Server with preconfigured IP -> MAC mapping
  * Communication to Red Hat services on the internet
     * cloud.openshift.com
-    * quay.io (on port 5000)
+    * quay.io 
     * registry.connect.redhat.com
-    * registry.redhat.io (on port 5000)
+    * registry.redhat.io
     * api.openshift.com/api/upgrades_info/v1/graph
     * infogw.api.openshift.com
     * operatorhub.io
     * cloudfront.net
-
 
 ## vCenter Prerequisites
 
