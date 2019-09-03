@@ -21,6 +21,7 @@ The following process can be used to deploy an OpenShift 4 cluster into vCenter 
     * api.openshift.com/api/upgrades_info/v1/graph
     * infogw.api.openshift.com
     * operatorhub.io
+    * cloudfront.net
 
 
 ## vCenter Prerequisites
