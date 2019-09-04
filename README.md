@@ -104,7 +104,7 @@ terraform init
 terraform apply -var-file=${OCP4_TERRAFORM_VARS_PATH} -auto-approve
 
 # Teardown infrastructure
-terraform apply -var-file=${OCP4_TERRAFORM_VARS_PATH} -auto-approve
+terraform destroy -var-file=${OCP4_TERRAFORM_VARS_PATH} -auto-approve
 ```
 
 ## Monitor installation process
