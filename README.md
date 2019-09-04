@@ -113,7 +113,12 @@ The following gets run from the utility server to complete the installation
 
 ```shell
 OCP4_INSTALL_DIR=/path/to/dir
+
+# From utility host
 openshift-install --dir=${OCP4_INSTALL_DIR} wait-for bootstrap-complete --log-level debug
+
+# From bootstrap host
+journalctl -b -f -u bootkube.service
 ```
 
 ## Logging in to RHCOS hosts
