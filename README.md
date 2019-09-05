@@ -71,7 +71,7 @@ Documentation for values in the OpenShift 4 installation file can be found in th
 
 ## Fill out terraform.tfvars
 
-An example file can be found at [terraform.tfvars.example](terraform.tfvars.example). Copy it and replace the values.
+An example file can be found at [terraform.tfvars.example](roles/infrastructure/vars/terraform.tfvars.example). Copy it and replace the values.
 
 ## Generate ignition files
 

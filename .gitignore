@@ -2,3 +2,6 @@ terraform.tfvars
 .terraform
 *.tfstate
 *.tfstate.backup
+vars/main.yml
+*.retry
+.state/

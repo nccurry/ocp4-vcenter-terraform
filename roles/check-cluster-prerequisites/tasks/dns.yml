@@ -1,0 +1,33 @@
+- name: Check dns a records
+  vars:
+    etcd_hosts:
+    - name: "etcd-0.{{ cluster_name }}.{{ dns_suffix }}"
+      ip: "{{ master_hosts[0].ip }}"
+    - name: "etcd-1.{{ cluster_name }}.{{ dns_suffix }}"
+      ip: "{{ master_hosts[1].ip }}"
+    - name: "etcd-2.{{ cluster_name }}.{{ dns_suffix }}"
+      ip: "{{ master_hosts[2].ip }}"
+  assert:
+    that:
+    - lookup('dig', item.name + './A') == item.ip
+    fail_msg: "The DNS A record for {{ item.name }} does not point to the correct IP {{ item.ip }}"
+  loop: "{{ load_balancers + bootstrap_hosts + master_hosts + worker_hosts + etcd_hosts }}"
+
+- name: Check dns ptr records
+  assert:
+    that:
+    - lookup('dig', item.ip | ipaddr('revdns') + '/PTR') == item.name + '.'
+    fail_msg: "The DNS PTR record for {{ item.ip | ipaddr('revdns') }} does not point to the correct name {{ item.name }}"
+  loop: "{{ load_balancers + bootstrap_hosts + master_hosts + worker_hosts }}"
+
+- name: Check dns srv records
+  vars:
+    etcd_srv: "_etcd-server-ssl._tcp.{{ cluster_name }}.{{ dns_suffix }}./SRV"
+    etcd_srv_records:
+    - "0 10 2380 etcd-0.{{ cluster_name }}.{{ dns_suffix }}."
+    - "0 10 2380 etcd-1.{{ cluster_name }}.{{ dns_suffix }}."
+    - "0 10 2380 etcd-2.{{ cluster_name }}.{{ dns_suffix }}."
+  assert:
+    that:
+    - lookup('dig', etcd_srv).split(',') | difference(etcd_srv_records) == []
+    fail_msg: "The DNS SRV records for etcd are not configured properly"

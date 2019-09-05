@@ -1,0 +1,16 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - import_role:
+      name: check-cluster-prerequisites
+    tags:
+    - never
+    - check-cluster-prerequisites
+
+  - import_role:
+      name: rhcos-hosts
+    tags:
+    - never
+    - rhcos-hosts

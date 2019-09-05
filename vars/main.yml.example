@@ -1,0 +1,63 @@
+cluster_name: ocp4
+dns_suffix: example.com
+
+vcenter_server_name: vcenter1
+vcenter_datacenter_name: datacenter1
+vcenter_cluster_name: cluster1
+vcenter_api_user: user
+vcenter_api_password: password
+vcenter_storage_user: user
+vcenter_storage_password: password
+vcenter_datastore_name: datastore1
+vcenter_network_name: network1
+vcenter_folder_path: /path/to/folder
+rhcos_template_name: OCP_4.1_OVA_Template
+
+ignition_url: http://host.example.com:8008/ignition
+
+load_balancers:
+- name: "api.{{ cluster_name }}.{{ dns_suffix }}"
+  ip: 10.0.0.10
+- name: "api-int.{{ cluster_name }}.{{ dns_suffix }}"
+  ip: 10.0.0.11
+- name: "*.apps.{{ cluster_name }}.{{ dns_suffix }}"
+  ip: 10.0.0.12
+
+bootstrap_hosts:
+- name: bootstrap.example.com
+  ip: 10.0.10.10
+  mac: 00:50:56:9b:40:00
+
+bootstrap_specs:
+  cpu: 4
+  memory: 16392
+  disk: 120
+
+master_hosts:
+- name: master01.example.com
+  ip: 10.0.10.11
+  mac: 00:50:56:9b:40:10
+- name: master01.example.com
+  ip: 10.0.10.12
+  mac: 00:50:56:9b:40:11
+- name: master03.example.com
+  ip: 10.0.10.13
+  mac: 00:50:56:9b:40:12
+
+master_specs:
+  cpu: 4
+  memory: 16392
+  disk: 120
+
+worker_hosts:
+- name: worker01
+  ip: 10.0.20.10
+  mac: 00:50:56:9b:40:20
+- name: worker02
+  ip: 10.0.20.11
+  mac: 00:50:56:9b:40:21
+
+worker_specs:
+  cpu: 4
+  memory: 16392
+  disk: 120

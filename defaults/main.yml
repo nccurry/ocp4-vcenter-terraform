@@ -1,0 +1,9 @@
+internet_urls:
+- cloud.openshift.com
+- quay.io
+- registry.connect.redhat.com
+- registry.redhat.io
+- api.openshift.com
+- infogw.api.openshift.com
+- operatorhub.io
+- cloudfront.net
