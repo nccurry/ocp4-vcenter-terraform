@@ -1,0 +1,10 @@
+- name: Remove ignition files from http server
+  file:
+    state: absent
+    path: "/var/www/html/{{ cluster_name }}"
+
+- name: Remove ignition files
+  file:
+    state: absent
+    path: "{{ working_dir }}/{{ cluster_name }}/install-dir"
+

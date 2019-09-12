@@ -1,0 +1,19 @@
+#!/usr/bin/env ansible-playbook
+- name: Regenerate ignition files and deploy openshift cluster
+  hosts: localhost
+  gather_facts: false
+  become: false
+  tasks:
+  - name: Check cluster prerequisites
+    import_role: check_cluster_prerequisites
+
+  - name: Install httpd
+    import_role: install_httpd
+
+  - name: Regenerate ignition files
+    vars:
+      regenerate_ignition: true
+    import_role: generation_ignition_files
+
+  - name: Deploy rhcos hosts
+    import_role: deploy_rhcos_hosts

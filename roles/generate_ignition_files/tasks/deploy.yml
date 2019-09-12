@@ -1,0 +1,50 @@
+- name: Check for openshift-install cli
+  shell: openshift-install --version
+  changed_when: false
+  register: openshift_install_version
+
+- assert:
+    that:
+    - openshift_install_version.rc == 0
+    fail_msg: You must install the openshift-install cli client
+
+- name: Remove existing ignition files
+  file:
+    state: absent
+    path:
+  loop:
+  - "{{ working_dir }}/{{ cluster_name }}/install-dir"
+  - "/var/www/html/{{ cluster_name }}/bootstrap.ign"
+  when: redeploy_ignition | default(false)
+
+- name: Create installation directory
+  file:
+    state: directory
+    path: "{{ working_dir }}/{{ cluster_name }}/install-dir"
+
+- name: Create install-config.yaml
+  template:
+    src: templates/install-config.yaml.j2
+    dest: "{{ working_dir }}/{{ cluster_name }}/install-dir/install-config.yaml"
+
+- name: Generate ignition files
+  command: "openshift-install create ignition-configs --dir={{ working_dir }}/{{ cluster_name }}/install-dir"
+  args:
+    creates: "{{ working_dir }}/{{ cluster_name }}/install-dir/bootstrap.ign"
+
+- name: Create http directory to host cluster files from
+  file:
+    path: "/var/www/html/{{ cluster_name }}"
+    state: directory
+    setype: system_u:object_r:httpd_sys_content
+
+- name: Copy ignition files to http server
+  copy:
+    src: "{{ working_dir }}/{{ cluster_name }}/install-dir/{{ item }}"
+    dest: "/var/www/html/{{ cluster_name }}/{{ item }}"
+    setype: system_u:object_r:httpd_sys_content
+  loop:
+  - bootstrap.ign
+  - master.ign
+  - worker.ign
+

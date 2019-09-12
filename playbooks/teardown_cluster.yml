@@ -1,0 +1,15 @@
+#!/usr/bin/env ansible-playbook
+- name: Teardown cluster and remove ignition files
+  hosts: localhost
+  gather_facts: false
+  become: false
+  tasks:
+  - name: Teardown rhcos hosts
+    vars:
+      teardown: true
+    import_role: deploy_rhcos_hosts
+
+  - name: Delete ignition files
+    vars:
+      teardown: true
+    import_role: generation_ignition_files

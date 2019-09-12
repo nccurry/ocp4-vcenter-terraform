@@ -1,0 +1,7 @@
+- name: Deploy httpd
+  import_tasks: deploy.yml
+  when: not teardown | default(false)
+
+- name: Teardown httpd
+  import_tasks: teardown.yml
+  when: teardown | default(false)

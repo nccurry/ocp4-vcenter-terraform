@@ -1,0 +1,4 @@
+- name: Uninstall httpd
+  yum:
+    name: httpd
+    state: absent
