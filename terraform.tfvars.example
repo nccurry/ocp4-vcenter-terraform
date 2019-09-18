@@ -23,17 +23,29 @@ bootstrap_cpus = "4"
 bootstrap_memory =  "16392"
 bootstrap_disk = "120"
 bootstrap_ignition_url = "http://server:8008/bootstrap.ign"
-bootstrap_vm_mac = "00:50:56:9b:40:00"
+bootstrap_vm = {
+  hostname = "bootstrap"
+  mac = "00:50:56:9b:40:00"
+}
 
 # Master hosts data
 master_cpus = "4"
 master_memory = "16392"
 master_disk = "120"
 master_ignition_path = "/path/to/master.ign"
-master_vm_mac_list = [
-  "00:50:56:9b:40:10",
-  "00:50:56:9b:40:11",
-  "00:50:56:9b:40:12"
+master_vm_list = [
+  {
+    hostname = "master1"
+    mac = "00:50:56:9b:40:10"
+  },
+  {
+    hostname = "master2"
+    mac = "00:50:56:9b:40:11"
+  },
+  {
+    hostname = "master3"
+    mac = "00:50:56:9b:40:12"
+  }
 ]
 
 # Worker hosts data
@@ -42,11 +54,29 @@ worker_memory = "16392"
 worker_disk = "120"
 worker_ignition_path = "/path/to/worker.ign"
 worker_vm_count = "6"
-worker_vm_mac_list = [
-    "00:50:56:9b:40:20",
-    "00:50:56:9b:40:21",
-    "00:50:56:9b:40:22",
-    "00:50:56:9b:40:23",
-    "00:50:56:9b:40:24",
-    "00:50:56:9b:40:25"
+worker_vm_list = [
+  {
+    hostname = "worker1"
+    mac = "00:50:56:9b:40:20"
+  },
+  {
+    hostname = "worker2"
+    mac = "00:50:56:9b:40:21"
+  },
+  {
+    hostname = "worker3"
+    mac = "00:50:56:9b:40:22"
+  },
+  {
+    hostname = "worker4"
+    mac = "00:50:56:9b:40:23"
+  },
+  {
+    hostname = "worker5"
+    mac = "00:50:56:9b:40:24"
+  },
+  {
+    hostname = "worker6"
+    mac = "00:50:56:9b:40:25"
+  }
 ]

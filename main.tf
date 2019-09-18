@@ -56,7 +56,7 @@ data "ignition_config" "bootstrap" {
 
 # https://www.terraform.io/docs/providers/vsphere/r/virtual_machine.html
 resource "vsphere_virtual_machine" "bootstrap" {
-  name             = "ocp-${var.cluster_id}-bootstrap"
+  name             = var.bootstrap_vm.name
   resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.bootstrap_cpus
@@ -71,7 +71,7 @@ resource "vsphere_virtual_machine" "bootstrap" {
   network_interface {
     network_id = data.vsphere_network.network.id
     use_static_mac = true
-    mac_address = var.bootstrap_vm_mac
+    mac_address = var.bootstrap_vm.mac
   }
 
   disk {
@@ -96,7 +96,7 @@ resource "vsphere_virtual_machine" "bootstrap" {
 resource "vsphere_virtual_machine" "master" {
   count = 3
 
-  name             = "ocp-${var.cluster_id}-master-${count.index}"
+  name             = var.master_vm_list[count.index].name
   resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.master_cpus
@@ -111,7 +111,7 @@ resource "vsphere_virtual_machine" "master" {
   network_interface {
     network_id = data.vsphere_network.network.id
     use_static_mac = true
-    mac_address = var.master_vm_mac_list[count.index]
+    mac_address = var.master_vm_list[count.index].mac
   }
 
   disk {
@@ -136,7 +136,7 @@ resource "vsphere_virtual_machine" "master" {
 resource "vsphere_virtual_machine" "worker" {
   count = var.worker_vm_count
 
-  name             = "ocp-${var.cluster_id}-worker-${count.index}"
+  name             = var.worker_vm_list[count.index].name
   resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.worker_cpus
@@ -151,7 +151,7 @@ resource "vsphere_virtual_machine" "worker" {
   network_interface {
     network_id = data.vsphere_network.network.id
     use_static_mac = true
-    mac_address = var.worker_vm_mac_list[count.index]
+    mac_address = var.worker_vm_list[count.index].mac
   }
 
   disk {

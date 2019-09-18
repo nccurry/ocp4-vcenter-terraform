@@ -46,8 +46,9 @@ variable "rhcos_template_name" {
   description = "Name of the RHCOS template in vCenter"
 }
 
-variable "bootstrap_vm_mac" {
-  description = "Bootstrap VM MAC address"
+variable "bootstrap_vm" {
+  description = "Dictionary of bootstrap name/mac pair"
+  type = object({name = string, mac = string})
 }
 
 variable "bootstrap_cpus" {
@@ -80,9 +81,9 @@ variable "master_ignition_path" {
   description = "Path to master ignition file"
 }
 
-variable "master_vm_mac_list" {
-  description = "List of master mac addresses"
-  type = list(string)
+variable "master_vm_list" {
+  description = "List of dictionaries of master name/mac pairs"
+  type = list(object({name = string, mac = string}))
 }
 
 variable "worker_cpus" {
@@ -104,7 +105,7 @@ variable "worker_vm_count" {
   description = "Number of worker virtual machines to deploy"
 }
 
-variable "worker_vm_mac_list" {
-  description = "List of worker mac addresses"
-  type = list(string)
+variable "worker_vm_list" {
+  description = "List of dictionaries of worker name/mac pairs"
+  type = list(object({name = string, mac = string}))
 }
