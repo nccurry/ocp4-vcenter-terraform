@@ -48,7 +48,7 @@ variable "rhcos_template_name" {
 
 variable "bootstrap_vm" {
   description = "Dictionary of bootstrap name/mac pair"
-  type = object({name = string, mac = string})
+  type = object({hostname = string, mac = string})
 }
 
 variable "bootstrap_cpus" {
@@ -83,7 +83,7 @@ variable "master_ignition_path" {
 
 variable "master_vm_list" {
   description = "List of dictionaries of master name/mac pairs"
-  type = list(object({name = string, mac = string}))
+  type = list(object({hostname = string, mac = string}))
 }
 
 variable "worker_cpus" {
@@ -107,5 +107,5 @@ variable "worker_vm_count" {
 
 variable "worker_vm_list" {
   description = "List of dictionaries of worker name/mac pairs"
-  type = list(object({name = string, mac = string}))
+  type = list(object({hostname = string, mac = string}))
 }

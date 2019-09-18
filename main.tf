@@ -56,7 +56,7 @@ data "ignition_config" "bootstrap" {
 
 # https://www.terraform.io/docs/providers/vsphere/r/virtual_machine.html
 resource "vsphere_virtual_machine" "bootstrap" {
-  name             = var.bootstrap_vm.name
+  name             = var.bootstrap_vm.hostname
   resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.bootstrap_cpus
@@ -96,7 +96,7 @@ resource "vsphere_virtual_machine" "bootstrap" {
 resource "vsphere_virtual_machine" "master" {
   count = 3
 
-  name             = var.master_vm_list[count.index].name
+  name             = var.master_vm_list[count.index].hostname
   resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.master_cpus
@@ -136,7 +136,7 @@ resource "vsphere_virtual_machine" "master" {
 resource "vsphere_virtual_machine" "worker" {
   count = var.worker_vm_count
 
-  name             = var.worker_vm_list[count.index].name
+  name             = var.worker_vm_list[count.index].hostname
   resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id 
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = var.worker_cpus
