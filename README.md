@@ -23,7 +23,7 @@ The following process can be used to deploy an OpenShift 4 cluster into vCenter 
     * operatorhub.io
     * cloudfront.net
     * mirror.openshift.com
-    * storage.googleapi.com
+    * storage.googleapis.com
 ## vCenter Prerequisites
 
 vCenter must be version 6.5 or 6.7u.
